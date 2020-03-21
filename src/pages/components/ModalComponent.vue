@@ -1,5 +1,5 @@
 <template>
-    <b-modal :id="idModal" :title="titleModal" hide-footer size="lg" @hidden="$emit( 'reset' )">
+    <b-modal :id="idModal" :title="tituloModal" hide-footer size="lg" @hidden="$emit( 'reset' )">
         <div class="main-card mb-3 card">
         <div class="card-body">
 
@@ -17,8 +17,16 @@
 export default {
     name: 'ModalComponent',
     props: {
-        idModal: String,
-        titleModal: String
+        
+        idModal: {
+            required: true,
+            type: String
+        },
+
+        tituloModal: {
+            required: true,
+            type: String
+        },
     }
 }
 

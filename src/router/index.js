@@ -18,6 +18,11 @@ export default new Router({
             path: '/condominio/cap/dominio',
             name: 'Dominio',
             component: () => import('../pages/cap/dominio/Dominio.vue')
+        },
+        {
+            path: '/condominio/pauta',
+            name: 'Pauta',
+            component: () => import('../pages/pauta/Pauta.vue')
         }
 
         //= EXEMPLOS =============================

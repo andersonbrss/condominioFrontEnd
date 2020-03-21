@@ -6,17 +6,14 @@
                     <i :class="icon"/>
                 </div>
                 <div>
-                    {{ this.$route.name }} <!--heading-->
+                    {{ nomeFuncionalidade }} 
                     <div
                         class="page-title-subheading">
-                        {{ subheading }} 
+                        {{ subTituloFuncionalidade }} 
                     </div>
                 </div>
             </div>
             <div class="page-title-actions">
-                <button type="button" class="btn-shadow mr-3 btn btn-dark">
-                    <font-awesome-icon icon="star"/>
-                </button>
                 <b-button v-b-modal="idModal" class="btn-shadow d-inline-flex align-items-center btn btn-success">
                     <font-awesome-icon class="mr-2" icon="plus"/>
                     Novo
@@ -47,12 +44,26 @@
         components: {
             'font-awesome-icon': FontAwesomeIcon,
         },
-        props: {
+        props: {           
+            nomeFuncionalidade:{
+            required: true,
+            type: String
+            },
+
+            subTituloFuncionalidade:{
+            required: true,
+            type: String
+            },
+
+            idModal:{
+            required: true,
+            type: String
+            },
+            
             icon: String,
-            heading: String,
-            subheading: String,
-            idModal : String
+            
+        },
 
         }
-    }
+    
 </script>

@@ -2,7 +2,7 @@
     
     <div class="main-card mb-3 card">
         <div class="card-body">
-            <b-table :items="list" :fields="cols" striped hover responsive="sm" id="tabela" :per-page="perPage" :current-page="currentPage">
+            <b-table :items="listaObjetos" :fields="camposFormulario" striped hover responsive="sm" id="tabela" :per-page="perPage" :current-page="currentPage">
                 <template v-slot:cell(actions)="data">
                     <b-button variant="warning" @click="$emit( 'load', data.item )" class="mr-2">
                         <font-awesome-icon icon="pencil-alt" />
@@ -30,8 +30,8 @@ export default {
         'font-awesome-icon': FontAwesomeIcon
     },
     props: {
-        list: Array,
-        cols: Array
+        listaObjetos: Array,
+        camposFormulario: Array
     },
     data: function() {
         return {
@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         rows() {
-            return this.list.length
+            return this.listaObjetos.length
         }
     }
 }
