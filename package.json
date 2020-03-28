@@ -24,6 +24,7 @@
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.15.0",
     "sass-loader": "^7.1.0",
+    "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
     "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-chartjs": "^3.4.2",

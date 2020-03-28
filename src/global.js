@@ -27,7 +27,7 @@ export const confirmDialogObject = {
     title: 'Por favor confirme',
     size: 'sm',
     buttonSize: 'sm',
-    okVariant: 'danger',
+    okVariant: 'primary',
     okTitle: 'Sim',
     cancelTitle: 'Não',
     footerClass: 'p-2',

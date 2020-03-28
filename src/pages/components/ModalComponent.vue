@@ -5,7 +5,7 @@
 
             <slot></slot>
 
-            <b-button variant="primary" @click="$emit( 'save' )"> Gravar </b-button>
+            <b-button variant="primary" @click="$emit( 'save' )" > Gravar </b-button>
             <b-button class="ml-2" @click="$emit( 'reset' )"> Limpar </b-button>
         </div>
         </div>
@@ -16,6 +16,7 @@
 
 export default {
     name: 'ModalComponent',
+         
     props: {
         
         idModal: {
