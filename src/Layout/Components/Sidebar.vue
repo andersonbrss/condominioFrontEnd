@@ -45,6 +45,10 @@
                     {
                         title: 'Dominio',
                         href: '/condominio/cap/dominio'
+                    },
+                    {
+                        title: 'Pauta',
+                        href: '/condominio/pauta'
                     }
                     
                     

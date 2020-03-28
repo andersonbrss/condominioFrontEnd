@@ -1,11 +1,11 @@
 <template>
-    <b-modal :id="idModal" :title="titleModal" hide-footer size="lg" @hidden="$emit( 'reset' )">
+    <b-modal :id="idModal" :title="tituloModal" hide-footer size="lg" @hidden="$emit( 'reset' )">
         <div class="main-card mb-3 card">
         <div class="card-body">
 
             <slot></slot>
 
-            <b-button variant="primary" @click="$emit( 'save' )"> Gravar </b-button>
+            <b-button variant="primary" @click="$emit( 'save' )" > Gravar </b-button>
             <b-button class="ml-2" @click="$emit( 'reset' )"> Limpar </b-button>
         </div>
         </div>
@@ -16,9 +16,18 @@
 
 export default {
     name: 'ModalComponent',
+         
     props: {
-        idModal: String,
-        titleModal: String
+        
+        idModal: {
+            required: true,
+            type: String
+        },
+
+        tituloModal: {
+            required: true,
+            type: String
+        },
     }
 }
 
