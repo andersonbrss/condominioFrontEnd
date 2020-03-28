@@ -10,13 +10,26 @@ export default new Router({
     routes: [
 
         {
+            path: '/condominio/cap/auth',
+            name: 'auth-login',
+            meta: { layout: 'userpages' },
+            component: () => import('../pages/cap/auth/Auth.vue')
+        },
+        {
+            path: '/condominio/cap/auth/register',
+            name: 'auth-register',
+            meta: { layout: 'userpages' },
+            component: () => import('../pages/cap/auth/Register.vue')
+        },
+
+        {
             path: '/condominio/advertencia',
-            name: 'Advertencia',
+            name: 'advertencia',
             component: () => import('../pages/advertencia/Advertencia.vue')
         },
         {
             path: '/condominio/cap/dominio',
-            name: 'Dominio',
+            name: 'dominio',
             component: () => import('../pages/cap/dominio/Dominio.vue')
         }
 
