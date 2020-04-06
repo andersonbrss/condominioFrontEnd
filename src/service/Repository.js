@@ -35,6 +35,14 @@ import Service from '@/service/Service'
      }
 
      /**
+      * @param {Date} dataInicio
+      * @param {Date} dataFim
+      */
+     buscaPorData( dataInicio, dataFim ) {
+        return axios.get( `${this.resource}/${dataInicio}/${dataFim}` )
+    }
+
+     /**
       * @param {Object} record
       */
      update( record ) {

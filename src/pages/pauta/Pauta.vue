@@ -1,4 +1,4 @@
-<template>
+<template> 
   <div class="app-container app-theme-white">
     <page-title-comum
       :nomeFuncionalidade="cabecalho"
@@ -6,10 +6,48 @@
       :icon="icon"
       :idModal="idModal"/>
 
+<pesquisa-data  v-on:pesquisar = "recuperarPautaData(filtroDatas.dataInicio, filtroDatas.dataFim)"> 
+<div>
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Data Inicio:</h6>
+            <b-form-datepicker
+              class="form-control"
+              v-model="filtroDatas.dataInicio"
+              id="dataInicio"
+              name="dataInicio"
+              placeholder="Selecione a data inicio"
+              hide-header
+              label-help="Selecione uma data"
+              calendar-width="350px">
+            </b-form-datepicker>
+          </div>
+          <div class="col-md-6">
+            <div class="position-relative form-group">
+              <h6>Data Fim:</h6>
+              <b-form-datepicker
+                
+                v-model="filtroDatas.dataFim"
+                id="dataFim"
+                name="dataFim"
+                placeholder="Selecione a data Fim"
+                hide-header
+                label-help="Selecione uma data"
+                calendar-width="350px">
+              </b-form-datepicker>
+            </div>
+          </div>
+        </div>
+</div>
+</pesquisa-data>
+
+
+
+<div>
     <ValidationObserver ref="form">
       <modal-component
         :idModal="idModal"
-        :tituloModal="tituloModalCadastro"
+        :tituloModal="tituloModal"
         v-on:save="cadastrarPauta"
         v-on:reset="limparFormulario">
 
@@ -31,12 +69,11 @@
                          class="form-control"
                          v-model="pauta.data"                          
                          id="data" 
-                         name="data"
-                         locale="pt-BR" 
+                         name="data"                         
                          placeholder="Selecione a data" 
                          hide-header
                          label-help="Selecione uma data"
-                         calendar-width="350px"                           
+                         calendar-width="350px"                          
                          >
                     </b-form-datepicker>
                     <span id="error">{{ errors[0] }}</span>
@@ -78,7 +115,7 @@
           <div class="form-row">
             <div class="col-md-12">
               <div class="position-relative form-group">
-                <label for="assunto">Assunto(s):</label>
+                <label for="assuntos">Assunto(s):</label>
 
                 <ValidationProvider
                   name="assuntos"
@@ -91,9 +128,9 @@
 
                   <div class="control" :class="classes">
                     <b-form-textarea
-                      v-model="pauta.assunto"
-                      name="assunto"
-                      id="assunto"
+                      v-model="pauta.assuntos"
+                      name="assuntos"
+                      id="assuntos"
                       placeholder="Digite o assunto(s) da pauta"                      
                       class="form-control"
                       :minlength="5"
@@ -108,12 +145,17 @@
         </b-form>
       </modal-component>
     </ValidationObserver>
+    <div>
+    
     <tabela-component
       :listaObjetos="listaPauta"
       :camposFormulario="camposPauta"
       v-on:load="loadPauta"
-      v-on:delete="confirmModal"
+      v-on:delete="confirmModal"     
     />
+    
+    </div>
+  </div>
   </div>
 </template>
 
@@ -128,6 +170,7 @@ import * as rules from "vee-validate/dist/rules";
 
 import PautaService from "./service/PautaService";
 import Pauta from "./domain/Pauta";
+import PesquisaData from "../components/PesquisaData.vue"
 
 Object.keys(rules).forEach(rule => {
   extend(rule, rules[rule]);
@@ -143,6 +186,7 @@ export default {
     TabelaComponent,
     ValidationProvider,
     ValidationObserver,
+    'pesquisa-data': PesquisaData
   },
 
   data: function() {
@@ -151,24 +195,25 @@ export default {
       subTitulo: "Listas de pautas",
       icon: "pe-7s-wallet icon-gradient bg-plum-plate",
       idModal: "cadastrar-pauta",
-      tituloModalCadastro: "Cadastro de Pautas",
+      tituloModal: "Cadastro de Pautas",
       pauta: new Pauta(),
+      filtroDatas:{dataInicio: new Date().toISOString().substring(0,10), dataFim: new Date().toISOString().substring(0,10)},
       listaPauta: [],
       camposPauta: [
         {
           key: "data",
           label: "Data",
           formatter: value => {
-            return new Date(value).toLocaleString().substr(0, 10);
+            return new Date(value).toLocaleString().substring(0,10);
           },
           sortable: true
         },
         { key: "local", label: "Local" },
-        { key: "assunto", label: "Assunto(s)" },
+        { key: "assuntos", label: "Assunto(s)" },
         { key: "actions", label: "Ações" }
       ],
       value: "",
-      context: null
+      context: null,
     };
   },
 
@@ -180,6 +225,29 @@ export default {
       this.pauta = new Pauta();
       this.$refs.form.reset();
     },
+    resetForm () {
+      this.email = '';
+      this.password = '';
+      this.confirmation = '';
+      this.subject = '';
+      this.choices = [];
+      requestAnimationFrame(() => {
+        this.$refs.observer.reset();
+      });
+  
+},
+
+  recuperarPautaData: function(dataInicio, dataFim){
+    this.$refs.form.validate().then(sucesso =>{
+      if(!sucesso){
+        showError("Realize o preenchimento de todos os campos obrigatórios.");
+      }
+    })
+      PautaService.buscarListaData(dataInicio, dataFim)
+      .then(res => {
+        this.listaPauta = res.data;         
+      }).catch(showError);
+    },
 
     recuperaListaPauta: function() {
       PautaService.buscaLista()
@@ -189,50 +257,53 @@ export default {
         .catch(showError);
     },
 
-    cadastrarPauta: function() {
+    cadastrarPauta: function() {         
       this.$refs.form.validate().then(sucesso => {
         if (!sucesso) {
-          showError("Realize o preenchimento de todos os campos obrigatórios.");
+          showError("Realize o preenchimento de todos os campos obrigatórios");
         } else {
           if (!this.pauta.id) {
             PautaService.cadastroPauta(this.pauta)
               .then(() => {
                 this.limparFormulario();
                 this.recuperaListaPauta();
-                showSuccess("Pauta cadastrada com sucesso!");
+                showSuccess();
               })
               .catch(showError);
           } else {
             PautaService.atualizarPauta(this.pauta)
               .then(() => {
-                showSuccess("Pauta atualizada com sucesso!");
+                showSuccess();
                 this.limparFormulario();
-                this.recuperaListaPauta();
+                this.recuperaListaPauta();                
               })
               .catch(showError);
           }
         }
       });
     },
+
     delete: function(pauta) {
       PautaService.delete(pauta.id)
         .then(() => {
           let index = this.listaPauta.indexOf(pauta);
           this.listaPauta.splice(index, 1);
-          showSuccess("Pauta excluida com sucesso!");
+          showSuccess();
         })
         .catch(showError);
     },
 
-    loadPauta: function(pauta) {
+    loadPauta: function(pauta) {    
       this.$bvModal.show(this.idModal);      
       this.pauta = { ...pauta };
+      this.pauta.data = new Date( pauta.data );       
     },
     confirmModal: function(pauta) {
       this.$bvModal
         .msgBoxConfirm(
           "Deseja realmente excluir a Pauta do dia: " +
-            new Date(pauta.data).toLocaleString().substr(0, 10),
+            new Date(pauta.data).toLocaleString().substr(0, 10) + "?"
+            ,
           confirmDialogObject
         )
         .then(value => {

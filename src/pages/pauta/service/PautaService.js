@@ -8,6 +8,10 @@ export default {
         return pautaRepository.getList();        
     },
 
+    buscarListaData:(dataInicio, dataFim) => {
+        return pautaRepository.buscaPorData(dataInicio, dataFim);
+    },
+
     cadastroPauta:( pauta ) => {
         return pautaRepository.save(pauta);
     },
