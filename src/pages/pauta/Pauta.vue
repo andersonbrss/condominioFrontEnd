@@ -225,18 +225,7 @@ export default {
       this.pauta = new Pauta();
       this.$refs.form.reset();
     },
-    resetForm () {
-      this.email = '';
-      this.password = '';
-      this.confirmation = '';
-      this.subject = '';
-      this.choices = [];
-      requestAnimationFrame(() => {
-        this.$refs.observer.reset();
-      });
-  
-},
-
+    
   recuperarPautaData: function(dataInicio, dataFim){
     this.$refs.form.validate().then(sucesso =>{
       if(!sucesso){
