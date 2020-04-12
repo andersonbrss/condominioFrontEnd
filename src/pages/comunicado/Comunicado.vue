@@ -6,7 +6,8 @@
       :icon="icon"
       :idModal="idModal"/>
 
-<pesquisa-data  v-on:pesquisar = "recuperarPautaData(filtroDatas.dataInicio, filtroDatas.dataFim)"> 
+<!-- Component de pesquisa -->
+<pesquisa-data  v-on:pesquisar = "recuperarComunicadoData(filtroDatas.dataInicio, filtroDatas.dataFim)"> 
 <div>
         <div class="row">
           <div class="col-md-6">
@@ -42,21 +43,21 @@
 </div>
 </pesquisa-data>
 
-
-
+<!-- Component de cadastro e alteracao -->
 <div>
     <ValidationObserver ref="form">
       <modal-component
         :idModal="idModal"
         :tituloModal="tituloModal"
-        v-on:save="cadastrarPauta"
+        v-on:save="cadastrarComunicado"
         v-on:reset="limparFormulario">
 
-        <b-form>
+        <b-form >
+        
           <div class="form-row">
             <div class="col-md-12">
               <div class="position-relative form-group">
-                <label for="data">Data:</label>
+                <label for="data">Data e Hora:</label>
                 <ValidationProvider
                   name="data"
                   rules="required"
@@ -64,31 +65,32 @@
                   v-slot="{
                     classes,
                     errors}">
-
-                 <div class="control" :class="classes">                  
-                       <datetime
-                        v-model="pauta.data"  
-                        type="date"
+                  <div class="control" :class="classes">                       
+                    <datetime
+                        v-model="comunicado.data"  
+                        type="datetime"
                         name="data"                        
                         input-id="data"
                         input-class="form-control"  
                         placeholder="Selecione a data e hora"
                         value-zone="America/Sao_Paulo"                               
-                        :format="{weekday: 'long',year: 'numeric', month: 'long', day: 'numeric'}">
-                    </datetime>
-                    <span id="error">{{ errors[1] }}</span>
+                        :format="{weekday: 'long',year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }">
+                    </datetime> 
+                     <span id="error">{{ errors[!errors] }}</span>
                   </div>
                 </ValidationProvider>
               </div>
             </div>
           </div>
+                  
+
 
           <div class="form-row">
             <div class="col-md-12">
               <div class="position-relative form-group">
-                <label for="local">Local:</label>
+                <label for="titulo">Titulo:</label>
                 <ValidationProvider
-                  name="local"
+                  name="titulo"
                   rules="required|min:5|max:100"
                   :bails="false"
                   v-slot="{
@@ -97,10 +99,10 @@
 
                   <div class="control" :class="classes">
                     <b-form-input
-                      v-model="pauta.local"
-                      name="local"
-                      id="local"
-                      placeholder="Digite o local"
+                      v-model="comunicado.titulo"
+                      name="titulo"
+                      id="titulo"
+                      placeholder="Digite o título"
                       type="text"
                       class="form-control"
                       :minlength="5"
@@ -115,10 +117,10 @@
           <div class="form-row">
             <div class="col-md-12">
               <div class="position-relative form-group">
-                <label for="assuntos">Assunto(s):</label>
+                <label for="descricao">Descrição:</label>
 
                 <ValidationProvider
-                  name="assuntos"
+                  name="descricao"
                   rules="required|min:5|max:1000"
                   :bails="false"
                   v-slot="{
@@ -128,10 +130,10 @@
 
                   <div class="control" :class="classes">
                     <b-form-textarea
-                      v-model="pauta.assuntos"
-                      name="assuntos"
-                      id="assuntos"
-                      placeholder="Digite o assunto(s) da pauta"                      
+                      v-model="comunicado.descricao"
+                      name="descricao"
+                      id="descricao"
+                      placeholder="Digite o(s) assunto(s) do comunicado"                      
                       class="form-control"
                       :minlength="5"
                       :maxlength="1000"
@@ -150,9 +152,9 @@
     <div>
     
     <tabela-component
-      :listaObjetos="listaPauta"
-      :camposFormulario="camposPauta"
-      v-on:load="loadPauta"
+      :listaObjetos="listaComunicado"
+      :camposFormulario="camposComunicado"
+      v-on:load="loadComunicado"
       v-on:delete="confirmModal"     
     />
     
@@ -173,8 +175,8 @@ import { Datetime } from 'vue-datetime';
 import moment from 'moment';
 import PesquisaData from "../components/PesquisaData.vue"
 
-import PautaService from "./service/PautaService";
-import Pauta from "./domain/Pauta";
+import ComunicadoService from "./service/ComunicadoService";
+import Comunicado from "./domain/Comunicado";
 
 Object.keys(rules).forEach(rule => {
   extend(rule, rules[rule]);
@@ -182,8 +184,9 @@ Object.keys(rules).forEach(rule => {
 
 localize("pt_BR", pt);
 
+
 export default {
-  name: "Pauta",
+  name: "Comunicado",
   components: {
     PageTitleComum,
     ModalComponent,
@@ -196,25 +199,25 @@ export default {
 
   data: function() {
     return {      
-      cabecalho: "Pauta",
-      subTitulo: "Listas de pautas",
-      icon: "pe-7s-note2",
-      idModal: "cadastrar-pauta",
-      tituloModal: "Cadastro de Pautas",
-      pauta: new Pauta(),
-      filtroDatas:{dataInicio: new Date().toISOString().substring(0,10), dataFim: new Date().toISOString().substring(0,10)},
-      listaPauta: [],
-      camposPauta: [
+      cabecalho: "Comunicado",
+      subTitulo: "Listas de comunicados",
+      icon: "pe-7s-comment",
+      idModal: "cadastrar-comunicado",
+      tituloModal: "Cadastro de Comunicados",
+      comunicado: new Comunicado(),
+       filtroDatas:{dataInicio: new Date().toISOString().substring(0,10), dataFim: new Date().toISOString().substring(0,10)},      
+      listaComunicado: [],
+      camposComunicado: [
         {
           key: "data",
-          label: "Data",
-          formatter: value => {
-            return moment(value).format('DD/MM/YYYY');
+          label: "Data e Hora",
+          formatter: value => { 
+            return moment(value).format('DD/MM/YYYY HH:mm');
           },
-          sortable: true
+          sortable: true          
         },
-        { key: "local", label: "Local" },
-        { key: "assuntos", label: "Assunto(s)" },
+        { key: "titulo", label: "Título" },
+        { key: "descricao", label: "Descrição" },
         { key: "actions", label: "Ações" }
       ],
       value: "",
@@ -227,44 +230,44 @@ export default {
       this.context = ctx;
     },
     limparFormulario: function() {
-      this.pauta = new Pauta();
-      this.$refs.form.reset();
+      this.comunicado = new Comunicado();
+      this.$refs.form.reset();     
     },
     
-  recuperarPautaData: function(dataInicio, dataFim){
-        PautaService.buscarListaData(dataInicio, dataFim)
+  recuperarComunicadoData: function(dataInicio, dataFim){      
+      ComunicadoService.buscarListaData(dataInicio, dataFim)
       .then(res => {
-        this.listaPauta = res.data;         
+        this.listaComunicado = res.data;                
       }).catch(showError);
     },
 
-    recuperaListaPauta: function() {
-      PautaService.buscaLista()
+    recuperaListaComunicado: function() {
+      ComunicadoService.buscarLista()
         .then(res => {
-          this.listaPauta = res.data;
+          this.listaComunicado = res.data;          
         })
         .catch(showError);
     },
 
-    cadastrarPauta: function() {         
+    cadastrarComunicado: function() {         
       this.$refs.form.validate().then(sucesso => {
         if (!sucesso) {
           showError("Realize o preenchimento de todos os campos obrigatórios");
         } else {
-          if (!this.pauta.id) {
-            PautaService.cadastroPauta(this.pauta)
+          if (!this.comunicado.id) {                                        
+            ComunicadoService.cadastroComunicado(this.comunicado)
               .then(() => {
                 this.limparFormulario();
-                this.recuperaListaPauta();
+                this.recuperaListaComunicado();
                 showSuccess();
               })
               .catch(showError);
-          } else {
-            PautaService.atualizarPauta(this.pauta)
+          } else {            
+            ComunicadoService.atualizarComunicado(this.comunicado)
               .then(() => {
                 showSuccess();
                 this.limparFormulario();
-                this.recuperaListaPauta();                
+                this.recuperaListaComunicado();                
               })
               .catch(showError);
           }
@@ -272,38 +275,39 @@ export default {
       });
     },
 
-    delete: function(pauta) {
-      PautaService.delete(pauta.id)
+    delete: function(comunicado) {
+      ComunicadoService.delete(comunicado.id)
         .then(() => {
-          let index = this.listaPauta.indexOf(pauta);
-          this.listaPauta.splice(index, 1);
+          let index = this.listaComunicado.indexOf(comunicado);
+          this.listaComunicado.splice(index, 1);
           showSuccess();
         })
         .catch(showError);
     },
 
-    loadPauta: function(pauta) {    
+    loadComunicado: function(comunicado) {    
       this.$bvModal.show(this.idModal);      
-      this.pauta = { ...pauta };
-     this.pauta.data = new Date(pauta.data).toISOString();   
+      this.comunicado = { ...comunicado };
+      this.comunicado.data = new Date(comunicado.data).toISOString();
     },
-    confirmModal: function(pauta) {
+    confirmModal: function(comunicado) {
       this.$bvModal
         .msgBoxConfirm(
-          "Deseja realmente excluir a Pauta do dia: " +
-            new Date(pauta.data).toLocaleString().substr(0, 10) + "?"
+          "Deseja realmente excluir o Comunicado: " +
+            comunicado.titulo+ "?"
             ,
           confirmDialogObject
         )
         .then(value => {
-          if (value) this.delete(pauta);
+          if (value) this.delete(comunicado);
         })
         .catch(showError);
     }
   },
   mounted: function() {
-    this.recuperaListaPauta();
-  }
+    this.recuperaListaComunicado();
+  },
+
 };
 </script>
 
@@ -312,18 +316,18 @@ export default {
  width: 100%
  span
    display: block
-   input,textarea,datepicker
+   input,textarea,datetime
    padding: 5px 10px
 
  &.invalid
-   input,textarea,datepicker,span
+   input,textarea,span,datetime
      color: #EB0600
-   input,textarea,datepicker
+   input,textarea,datetime
      border: 1px #EB0600 solid
 
  &.valid
-   input,textarea,datepicker,span
+   input,textarea,span,datetime
      color: #045929
-   input,textarea,datepicker
+   input,textarea,datetime
      border: 1px #045929 solid
 </style>

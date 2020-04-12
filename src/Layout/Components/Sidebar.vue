@@ -47,6 +47,10 @@
                         href: '/condominio/cap/dominio'
                     },
                     {
+                        title: 'Comunicado',
+                        href: '/condominio/comunicado'
+                    },
+                    {
                         title: 'Pauta',
                         href: '/condominio/pauta'
                     }

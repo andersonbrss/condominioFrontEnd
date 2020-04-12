@@ -7,9 +7,20 @@ import Pages from './Layout/Wrappers/pagesLayout.vue';
 import './config/msgs';
 import './config/axios';
 import store from './config/store';
+import { Datetime } from 'vue-datetime';
+import 'vue-datetime/dist/vue-datetime.css';
+import moment from 'moment';
+import VueMoment from 'vue-moment';
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+Vue.use(Datetime);
+
+
+require('moment/locale/pt-br');
+moment.locale('pt-br');
+
+Vue.use(VueMoment, { moment });
 
 Vue.component('default-layout', Default);
 Vue.component('userpages-layout', Pages);

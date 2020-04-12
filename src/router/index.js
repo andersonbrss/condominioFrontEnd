@@ -36,6 +36,11 @@ export default new Router({
             path: '/condominio/pauta',
             name: 'Pauta',
             component: () => import('../pages/pauta/Pauta.vue')
+        },
+        {
+            path: '/condominio/comunicado',
+            name: 'Comunicado',
+            component: () => import('../pages/comunicado/Comunicado.vue')
         }
 
         //= EXEMPLOS =============================
