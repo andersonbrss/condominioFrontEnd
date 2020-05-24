@@ -53,6 +53,10 @@
                     {
                         title: 'Pauta',
                         href: '/condominio/pauta'
+                    },
+                    {
+                        title: 'Upload',
+                        href: '/condominio/upload'
                     }
                     
                     

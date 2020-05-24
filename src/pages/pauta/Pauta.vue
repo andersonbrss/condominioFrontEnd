@@ -4,7 +4,8 @@
       :nomeFuncionalidade="cabecalho"
       :subTituloFuncionalidade="subTitulo"
       :icon="icon"
-      :idModal="idModal"/>
+      :idModal="idModal"
+      v-on:configuraModal="recuperaNomeModal"/>
 
 <pesquisa-data  v-on:pesquisar = "recuperarPautaData(filtroDatas.dataInicio, filtroDatas.dataFim)"> 
 <div>
@@ -17,8 +18,7 @@
                         name="dataInicio"                        
                         input-id="dataInicio"
                         input-class="form-control"  
-                        placeholder="Selecione a data e hora"
-                        value-zone="America/Sao_Paulo"                               
+                        placeholder="Selecione a data e hora"                                                     
                         :format="{weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }">
                     </datetime> 
 
@@ -32,8 +32,7 @@
                         name="dataFim"                        
                         input-id="dataFim"
                         input-class="form-control"  
-                        placeholder="Selecione a data e hora"
-                        value-zone="America/Sao_Paulo"                               
+                        placeholder="Selecione a data e hora"                                                
                         :format="{weekday: 'long',year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>             
             </div>
@@ -72,7 +71,7 @@
                         name="data"                        
                         input-id="data"
                         input-class="form-control"  
-                        placeholder="Selecione a data e hora"
+                        placeholder="Selecione a data"
                         value-zone="America/Sao_Paulo"                               
                         :format="{weekday: 'long',year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
@@ -216,19 +215,18 @@ export default {
         { key: "local", label: "Local" },
         { key: "assuntos", label: "Assunto(s)" },
         { key: "actions", label: "Ações" }
-      ],
-      value: "",
-      context: null,
+      ],            
     };
   },
 
   methods: {
-    onContext(ctx) {
-      this.context = ctx;
-    },
     limparFormulario: function() {
       this.pauta = new Pauta();
       this.$refs.form.reset();
+    },
+
+    recuperaNomeModal:function(){
+     this.tituloModal = "Cadastro de Pauta";
     },
     
   recuperarPautaData: function(dataInicio, dataFim){
@@ -283,7 +281,8 @@ export default {
     },
 
     loadPauta: function(pauta) {    
-      this.$bvModal.show(this.idModal);      
+      this.$bvModal.show(this.idModal);     
+      this.tituloModal = "Alteração Pauta"; 
       this.pauta = { ...pauta };
      this.pauta.data = new Date(pauta.data).toISOString();   
     },

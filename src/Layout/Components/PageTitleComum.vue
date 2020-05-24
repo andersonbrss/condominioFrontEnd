@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="page-title-actions">
-                <b-button v-b-modal="idModal" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+                <b-button v-b-modal="idModal" class="btn-shadow d-inline-flex align-items-center btn btn-success"  @click="$emit( 'configuraModal' )">
                     <font-awesome-icon class="mr-2" icon="plus"/>
                     Novo
                 </b-button>
