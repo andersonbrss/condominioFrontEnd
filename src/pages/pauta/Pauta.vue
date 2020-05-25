@@ -66,7 +66,7 @@
 
                  <div class="control" :class="classes">                  
                        <datetime
-                        v-model="funcionario.data"  
+                        v-model="pauta.data"  
                         type="date"
                         name="data"                        
                         input-id="data"
