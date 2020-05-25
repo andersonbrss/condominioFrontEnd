@@ -41,6 +41,11 @@ export default new Router({
             path: '/condominio/comunicado',
             name: 'Comunicado',
             component: () => import('../pages/comunicado/Comunicado.vue')
+        },
+        {
+            path: '/condominio/funcionario',
+            name: 'Funcionario',
+            component: () => import('../pages/funcionario/Funcionario.vue')
         }
 
         //= EXEMPLOS =============================

@@ -53,6 +53,10 @@
                     {
                         title: 'Pauta',
                         href: '/condominio/pauta'
+                    },
+                                        {
+                        title: 'Funcionario',
+                        href: '/condominio/funcionario'
                     }
                     
                     
