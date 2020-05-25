@@ -338,8 +338,8 @@ export default {
       tituloModal: "",
       comunicado: new Comunicado(),
       filtroDatas: {
-        dataInicio: new Date().toISOString().substring(0, 10),
-        dataFim: new Date().toISOString().substring(0, 10),
+        dataInicio: moment().format(), 
+        dataFim: moment().format()
       },
       listaComunicado: [],
       listaPauta: [],
@@ -382,8 +382,8 @@ export default {
 
     limparListaPauta: function() {
       this.listaPauta = [];
-      this.filtroDatas.dataInicio = new Date().toISOString().substring(0, 10);      
-      this.filtroDatas.dataFim = new Date().toISOString().substring(0, 10);
+      this.filtroDatas.dataInicio = moment().format();      
+      this.filtroDatas.dataFim = moment().format();      
       this.tituloModal = "Cadastro de Comunicados";
     },
 

@@ -201,14 +201,16 @@ export default {
       idModal: "cadastrar-pauta",
       tituloModal: "Cadastro de Pautas",
       pauta: new Pauta(),
-      filtroDatas:{dataInicio: new Date().toISOString().substring(0,10), dataFim: new Date().toISOString().substring(0,10)},
+      filtroDatas:{
+        dataInicio: moment().format(), 
+        dataFim: moment().format()},
       listaPauta: [],
       camposPauta: [
         {
           key: "data",
           label: "Data",
           formatter: value => {
-            return moment(value).format('DD/MM/YYYY');
+            return moment(value).format('LL');
           },
           sortable: true
         },
@@ -236,7 +238,7 @@ export default {
       }).catch(showError);
     },
 
-    recuperaListaPauta: function() {
+    recuperaListaPauta: function() {      
       PautaService.buscaLista()
         .then(res => {
           this.listaPauta = res.data;
@@ -284,14 +286,14 @@ export default {
       this.$bvModal.show(this.idModal);     
       this.tituloModal = "Alteração Pauta"; 
       this.pauta = { ...pauta };
-     this.pauta.data = new Date(pauta.data).toISOString();   
+     this.pauta.data = moment(pauta.data).format();     
     },
+
     confirmModal: function(pauta) {
       this.$bvModal
         .msgBoxConfirm(
           "Deseja realmente excluir a Pauta do dia: " +
-            new Date(pauta.data).toLocaleString().substr(0, 10) + "?"
-            ,
+          moment(pauta.data).format("DD/MM/YYYY") + "?",
           confirmDialogObject
         )
         .then(value => {
