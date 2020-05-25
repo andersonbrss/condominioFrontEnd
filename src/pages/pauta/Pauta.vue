@@ -203,7 +203,7 @@ export default {
       pauta: new Pauta(),
       filtroDatas:{
         dataInicio: moment().format(), 
-        dataFim: moment().format()},
+        dataFim: moment().add(7,"days").format()},
       listaPauta: [],
       camposPauta: [
         {

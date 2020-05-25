@@ -216,8 +216,8 @@
                                 <datetime
                                   v-model="filtroDatasPauta.dataInicio"
                                   type="date"
-                                  name="dataInicio"
-                                  input-id="dataInicio"
+                                  name="dataInicioPauta"
+                                  input-id="dataInicioPauta"
                                   input-class="form-control"
                                   placeholder="Selecione a data e hora"
                                   value-zone="America/Sao_Paulo"
@@ -236,8 +236,8 @@
                                   <datetime
                                     v-model="filtroDatasPauta.dataFim"
                                     type="date"
-                                    name="dataFim"
-                                    input-id="dataFim"
+                                    name="dataFimPauta"
+                                    input-id="dataFimPauta"
                                     input-class="form-control"
                                     placeholder="Selecione a data e hora"
                                     value-zone="America/Sao_Paulo"
@@ -339,14 +339,14 @@ export default {
       comunicado: new Comunicado(),
       filtroDatas: {
         dataInicio: moment().format(), 
-        dataFim: moment().format()
+        dataFim: moment().add(7,"days").format()
       },
       listaComunicado: [],
       listaPauta: [],
       pauta: new Pauta(),
       filtroDatasPauta: {
         dataInicio: moment().format(), 
-        dataFim: moment().format()
+        dataFim: moment().add(7,"days").format()
       },
       camposPauta: [
         {
