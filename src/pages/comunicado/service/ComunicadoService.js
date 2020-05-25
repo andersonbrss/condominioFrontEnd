@@ -16,12 +16,18 @@ export default {
     },
 
     cadastroComunicado:(comunicado)=>{
-        comunicado.data = moment(comunicado.data).format('YYYY-MM-DDTHH:mm');    
+        comunicado.data = moment(comunicado.data).format('YYYY-MM-DDTHH:mm');
+        if (Object.entries(comunicado.pautaAssuntos).length === 0) {
+            delete comunicado.pautaAssuntos;            
+        }            
         return comunicadoRepository.save(comunicado);
     },
 
     atualizarComunicado:(comunicado) => {
         comunicado.data = moment(comunicado.data).format('YYYY-MM-DDTHH:mm');    
+        if (Object.entries(comunicado.pautaAssuntos).length === 0) {
+            delete comunicado.pautaAssuntos;            
+        }            
         return comunicadoRepository.update(comunicado);
     },
 

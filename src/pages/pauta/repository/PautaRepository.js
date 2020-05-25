@@ -1,5 +1,7 @@
 import Repository from '@/service/Repository'
 import { urlApi } from '@/global'
+import axios from 'axios';
+
 
 export default class Pauta extends Repository {
     /**
@@ -7,5 +9,9 @@ export default class Pauta extends Repository {
      */
     constructor( options ) {
         super( options, `${ urlApi }/pauta`)
+    }
+
+    buscaPautaVinculoComunicado( dataInicio, dataFim ) {
+        return axios.get( `${this.resource}/vinculoComunicado/${dataInicio}/${dataFim}` )
     }
 }
