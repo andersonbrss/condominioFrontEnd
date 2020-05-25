@@ -214,7 +214,7 @@
                               <div class="col-md-6">
                                 <h6>Data Inicio:</h6>
                                 <datetime
-                                  v-model="filtroDatas.dataInicio"
+                                  v-model="filtroDatasPauta.dataInicio"
                                   type="date"
                                   name="dataInicio"
                                   input-id="dataInicio"
@@ -234,7 +234,7 @@
                                 <div class="position-relative form-group">
                                   <h6>Data Fim:</h6>
                                   <datetime
-                                    v-model="filtroDatas.dataFim"
+                                    v-model="filtroDatasPauta.dataFim"
                                     type="date"
                                     name="dataFim"
                                     input-id="dataFim"
@@ -344,6 +344,10 @@ export default {
       listaComunicado: [],
       listaPauta: [],
       pauta: new Pauta(),
+      filtroDatasPauta: {
+        dataInicio: moment().format(), 
+        dataFim: moment().format()
+      },
       camposPauta: [
         {
           key: "data",
@@ -463,7 +467,7 @@ export default {
       this.$bvModal.show(this.idModal);
       this.tituloModal = "Alteração Comunicado";
       this.comunicado = { ...comunicado };
-      this.comunicado.data = new Date(comunicado.data).toISOString();
+      this.comunicado.data = moment(comunicado.data).format();      
     },
     confirmModal: function(comunicado) {
       this.$bvModal
