@@ -353,7 +353,7 @@ export default {
           key: "data",
           label: "Data",
           formatter: (value) => {
-            return moment(value).format("DD/MM/YYYY");
+            return moment(value).format("LL");
           },
           sortable: true,
         },
@@ -366,7 +366,7 @@ export default {
           key: "data",
           label: "Data e Hora",
           formatter: (value) => {
-            return moment(value).format("DD/MM/YYYY HH:mm");
+            return moment(value).format("LLL");
           },
           sortable: true,
         },
