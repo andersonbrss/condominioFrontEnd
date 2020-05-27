@@ -59,7 +59,6 @@
                         title: 'Funcionario',
                         href: '/condominio/funcionario'
                     },
-
                     {
                         title: 'Upload',
                         href: '/condominio/upload'
