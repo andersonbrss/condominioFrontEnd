@@ -214,10 +214,10 @@
                               <div class="col-md-6">
                                 <h6>Data Inicio:</h6>
                                 <datetime
-                                  v-model="filtroDatas.dataInicio"
+                                  v-model="filtroDatasPauta.dataInicio"
                                   type="date"
-                                  name="dataInicio"
-                                  input-id="dataInicio"
+                                  name="dataInicioPauta"
+                                  input-id="dataInicioPauta"
                                   input-class="form-control"
                                   placeholder="Selecione a data e hora"
                                   value-zone="America/Sao_Paulo"
@@ -234,10 +234,10 @@
                                 <div class="position-relative form-group">
                                   <h6>Data Fim:</h6>
                                   <datetime
-                                    v-model="filtroDatas.dataFim"
+                                    v-model="filtroDatasPauta.dataFim"
                                     type="date"
-                                    name="dataFim"
-                                    input-id="dataFim"
+                                    name="dataFimPauta"
+                                    input-id="dataFimPauta"
                                     input-class="form-control"
                                     placeholder="Selecione a data e hora"
                                     value-zone="America/Sao_Paulo"
@@ -339,17 +339,21 @@ export default {
       comunicado: new Comunicado(),
       filtroDatas: {
         dataInicio: moment().format(), 
-        dataFim: moment().format()
+        dataFim: moment().add(7,"days").format()
       },
       listaComunicado: [],
       listaPauta: [],
       pauta: new Pauta(),
+      filtroDatasPauta: {
+        dataInicio: moment().format(), 
+        dataFim: moment().add(7,"days").format()
+      },
       camposPauta: [
         {
           key: "data",
           label: "Data",
           formatter: (value) => {
-            return moment(value).format("DD/MM/YYYY");
+            return moment(value).format("LL");
           },
           sortable: true,
         },
@@ -362,7 +366,7 @@ export default {
           key: "data",
           label: "Data e Hora",
           formatter: (value) => {
-            return moment(value).format("DD/MM/YYYY HH:mm");
+            return moment(value).format("LLL");
           },
           sortable: true,
         },
@@ -463,7 +467,7 @@ export default {
       this.$bvModal.show(this.idModal);
       this.tituloModal = "Alteração Comunicado";
       this.comunicado = { ...comunicado };
-      this.comunicado.data = new Date(comunicado.data).toISOString();
+      this.comunicado.data = moment(comunicado.data).format();      
     },
     confirmModal: function(comunicado) {
       this.$bvModal

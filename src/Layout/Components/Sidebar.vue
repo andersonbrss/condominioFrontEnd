@@ -43,6 +43,10 @@
                         href: '/condominio/advertencia'
                     },
                     {
+                        title: 'Ata',
+                        href: '/condominio/ata'
+                    },
+                    {
                         title: 'Dominio',
                         href: '/condominio/cap/dominio'
                     },

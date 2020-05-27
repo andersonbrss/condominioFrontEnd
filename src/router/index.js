@@ -51,6 +51,11 @@ export default new Router({
             path: '/condominio/upload',
             name: 'Upload',
             component: () => import('../pages/upload/Upload.vue')
+        },
+        {   
+            path: '/condominio/ata',
+            name: 'Ata',
+            component: () => import('../pages/ata/Ata.vue')
         }
 
         //= EXEMPLOS =============================
