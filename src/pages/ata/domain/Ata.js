@@ -1,6 +1,8 @@
 export default class Ata{
-    constructor(data='',consideracoesFinais='') {
+    constructor(data='',consideracoesFinais='',pauta='', upload=[]){
         this.data = data;
-        this.local = consideracoesFinais;        
+        this.consideracoesFinais = consideracoesFinais;
+        this.pauta = pauta;
+        this.upload = upload;
     }
 }

@@ -16,7 +16,10 @@ export default {
     },
    
     cadastroAta:( ata ) => {
-        ata.data = moment(ata.data).format('YYYY-MM-DD');    
+        ata.data = moment(ata.data).format('YYYY-MM-DD');  
+        if (Object.entries(ata.pauta).length === 0) {
+            delete ata.pauta;            
+        }              
         return ataRepository.save(ata);
     },
     
