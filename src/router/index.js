@@ -53,6 +53,11 @@ export default new Router({
             component: () => import('../pages/upload/Upload.vue')
         },
         {   
+            path: '/condominio/enquete',
+            name: 'Enquete',
+            component: () => import('../pages/enquete/Enquete.vue')
+        },        
+        {   
             path: '/condominio/ata',
             name: 'Ata',
             component: () => import('../pages/ata/Ata.vue')

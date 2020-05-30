@@ -63,12 +63,16 @@
                         title: 'Funcionario',
                         href: '/condominio/funcionario'
                     },
-
                     {
                         title: 'Upload',
                         href: '/condominio/upload'
 
-                    }
+                    },
+                    {
+                        title: 'Enquete',
+                        href: '/condominio/enquete'
+
+                    }                    
                     
                     
                     ,{
