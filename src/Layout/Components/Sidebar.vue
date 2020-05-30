@@ -67,7 +67,12 @@
                         title: 'Upload',
                         href: '/condominio/upload'
 
-                    }
+                    },
+                    {
+                        title: 'Enquete',
+                        href: '/condominio/enquete'
+
+                    }                    
                     
                     
                     ,{

@@ -19,136 +19,6 @@
         v-on:reset="limparFormulario">
 
         <b-form>
-<!--
-          <div class="form-row">
-            <div class="col-md-12">
-              <div class="position-relative form-group">
-                <label for="nome">Funcionario:</label>
-                <ValidationProvider name="nome" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.nome" name="nome" id="nome" placeholder="Digite o nome do func" type="text" class="form-control" :minlength="5" :maxlength="100"/>
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-
--------------------------------------------------------
-
-          <div class="form-row"> 
-            <label for="teste">teste: </label>
-          <b-form-input :themask="['###.###.###-##']"  placeholder="000.000.000-00" class="form-control"/>
-         
-           <the-mask :mask="['###.###.###-##', '##.###.###/####-##']" placeholder="000.000.000-00" />
-          </div>
-
-
-                <div class="form-row">
-                  <div class="col-md-6">
-                    <div class="position-relative form-group"><label for="exampleEmail11" class="">Email</label><input name="email" id="exampleEmail11" placeholder="with a placeholder" type="email" class="form-control"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="position-relative form-group"><label for="examplePassword11" class="">Password</label><input name="password" id="examplePassword11" placeholder="password placeholder" type="password" class="form-control"></div>
-                  </div>
-                </div>
-------------------------------------
-
-
-
-          <div class="form-row">
-            <div class="col-md-5">
-              <div class="position-relative form-group">
-                <label for="data">Data de Nascimento:</label>
-                <ValidationProvider name="data" rules="required" :bails="false" v-slot="{ classes, errors}">
-
-                 <div class="control" :class="classes">                  
-                    <b-form-datepicker  class="form-control" v-model="funcionario.data" id="data" name="data" placeholder="Selecione a data" hide-header label-help="Selecione uma data" calendar-width="350px">
-                    </b-form-datepicker>
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          
-
-
-
-         
-            <div class="col-md-3">
-              <div class="position-relative form-group">
-                <label for="cpf">CPF:</label>
-                <ValidationProvider name="cpf" rules="required|min:11|max:11" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.cpf"  name="cpf" id="cpf"  placeholder="000.000.000-00" type="text" class="form-control" :minlength="11" :maxlength="11" />
-                    
-                    <span id="error">{{ errors[0] }}</span>
-                    
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-         
-
-       
-            <div class="col-md-2">
-              <div class="position-relative form-group">
-                <label for="cpf">RG:</label>
-                <ValidationProvider name="rg" rules="required|min:11|max:11" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.rg"  name="rg" id="rg"  placeholder="000.000.000-00" type="text" class="form-control" :minlength="11" :maxlength="11" />
-                    
-                    <span id="error">{{ errors[0] }}</span>
-                    
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          
-
-
-          
-            <div class="col-md-2">
-              <div class="position-relative form-group">
-                <label for="nome">Emissor:</label>
-                <ValidationProvider name="rgEmissor" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.rgEmissor" name="rgEmissor" id="rgEmissor" placeholder="--" type="text" class="form-control" :minlength="2" :maxlength="10"/>
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-
-
--->
-
-
-
-<!--
-          <div class="form-row">
-            <div class="col-md-12">
-              <div class="position-relative form-group">
-                <label for="data">Data de Nascimento:</label>
-                <ValidationProvider name="data" rules="required" :bails="false" v-slot="{ classes, errors}">
-
-                 <div class="control" :class="classes">                  
-                    <b-form-datepicker  class="form-control" v-model="funcionario.data" id="data" name="data" placeholder="Selecione a data" hide-header label-help="Selecione uma data" calendar-width="350px">
-                    </b-form-datepicker>
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-
--->
-
 
 
 <div>
@@ -232,26 +102,6 @@
             </div>
           
 
-
- <!--         
-            <div class="col-md-3">
-              <div class="position-relative form-group">
-                <label for="sexo">Sexo:</label>
-                <ValidationProvider name="sexo" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.sexo" name="sexo" id="sexo" placeholder="Ex: Masculino " type="text" class="form-control" :minlength="2" :maxlength="10"/>
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-
-
--->
-
-
-
             <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="sexo">Sexo:</label>
@@ -278,10 +128,10 @@
             <div class="col-md-8">
               <div class="position-relative form-group">
                 <label for="email">Email:</label>
-                <ValidationProvider name="email" rules="required" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="Email" rules="required" :bails="false" v-slot="{ classes, errors}">
 
-                 <div class="control" :class="classes">                  
-                   <b-form-input v-model="funcionario.email" name="email" id="email" placeholder=" email@mail.com " type="text" class="form-control" :minlength="2" :maxlength="50"/>
+                 <div class="control" :class="[classes, isEmailValid()]">                  
+                   <input type="email" v-model="funcionario.email" name="email" id="email" placeholder=" email@mail.com " class="form-control" :minlength="2" :maxlength="50"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -290,11 +140,7 @@
 
 
           </div>
-
-
- 
-
-                  
+                
                 </b-tab>
 
                  <b-tab title="Dados Gerais">
@@ -313,12 +159,12 @@
                   <div class="control" :class="classes">
                           <select v-model="funcionario.escolaridade" name="escolaridade" id="escolaridade" placeholder="Selecione" class="form-control">
                                 <option value="">Selecione</option>
-                                <option>Fundamental incompleto</option>
-                                <option>Fundamental completo</option>
-                                <option>Médio incompleto</option>
-                                <option>Médio completo</option>
-                                <option>Superior incompleto</option>n>
-                                <option>Superior completo</option>
+                                <option>Fundamental Incompleto</option>
+                                <option>Fundamental Completo</option>
+                                <option>Médio Incompleto</option>
+                                <option>Médio Completo</option>
+                                <option>Superior Incompleto</option>
+                                <option>Superior Completo</option>
 
                     </select>
                     <span id="error">{{ errors[0] }}</span>
@@ -399,11 +245,11 @@
 
             <div class="col-md-5">
               <div class="position-relative form-group">
-                <label for="data">Data Emissão:</label>
+                <label for="rgEmissorData">Data Emissão:</label>
                 <ValidationProvider name="data emissão" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                  <div class="control" :class="classes">                  
-                       <datetime v-model="funcionario.rgEmissorData" type="date" name="data" input-id="data" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
+                       <datetime v-model="funcionario.rgEmissorData" type="date" name="rgEmissorData" input-id="rgEmissorData" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
                         :format="{year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
                     <span id="error">{{ errors[0] }}</span>
@@ -422,11 +268,11 @@
 
             <div class="col-md-3">
               <div class="position-relative form-group">
-                <label for="nome">Carteira de Trabalho Nº:</label>
+                <label for="carteiraTrabalhoNo">Carteira de Trabalho Nº:</label>
                 <ValidationProvider name="carteira de trabalho nº" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.carteiraTrabalhoNo" name="nome" id="nome" placeholder="" type="text" class="form-control" :minlength="5" :maxlength="100"/>
+                    <b-form-input v-model="funcionario.carteiraTrabalhoNo" name="carteiraTrabalhoNo" id="carteiraTrabalhoNo" placeholder="" type="text" class="form-control" :minlength="5" :maxlength="100"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -464,7 +310,7 @@
 
             <div class="col-md-4">
               <div class="position-relative form-group">
-                <label for="data">Data Emissão:</label>
+                <label for="carteiraTrabalhoEmissorData">Data Emissão:</label>
                 <ValidationProvider name="data emissão" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                  <div class="control" :class="classes">                  
@@ -549,7 +395,7 @@
                 <ValidationProvider name="cep" rules="required|min:8|max:9" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <the-mask :mask="['##.###-###']" v-model="cep" @keyup.native="buscaCep()"  id="enderecoCep" placeholder="00.000-000" type="text" class="form-control"/>
+                    <the-mask :mask="['##.###-###']" v-model="funcionario.enderecoCep" @keyup.native="buscaCep()"  id="enderecoCep" placeholder="00.000-000" type="text" class="form-control"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -643,11 +489,11 @@
             <div class="col-md-9">
               <div class="position-relative form-group">
                 <label for="endereco">Complemento:</label>
-                <ValidationProvider name="endereco" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="complemento" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
                     <b-form-input v-model="funcionario.enderecoComplemento
-                    " name="endereco" id="endereco" placeholder="Digite o complemento" type="text" class="form-control" :minlength="5" :maxlength="100"/>
+                    " name="enderecoComplemento" id="enderecoComplemento" placeholder="Digite o complemento" type="text" class="form-control" :minlength="5" :maxlength="100"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -706,7 +552,7 @@
 
             <div class="col-md-4">
               <div class="position-relative form-group">
-                <label for="data">Data Nascimento:</label>
+                <label for="dependenteDataNascimento">Data Nascimento:</label>
                 <ValidationProvider name="data" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                  <div class="control" :class="classes">                  
@@ -735,36 +581,6 @@
                 </template>
 
                    
-<!--       
-         <div class="form-row"> 
-            <label for="teste">teste: </label>
-        
-         
-           <the-mask :mask="['###.###.###-##']" placeholder="000.000.000-00" class="form-control"/>
-
-
-
-           <div class="col-md-4">
-              <div class="position-relative form-group">
-                <label for="enderecoCep">Cep:</label>
-                <ValidationProvider name="enderecoCep" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-
-                    <the-mask :mask="['###.###.###-##']" v-model="funcionario.enderecoCep" name="enderecoCep" id="enderecoCep" placeholder="000.000.000-00" type="text" class="form-control" :minlength="5" :maxlength="100"/>   
-
-               
-                    <span id="error">{{ errors[0] }}</span>
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div> 
-          </div>
-
-
-
-
--->
 
 
                             <div class="position-relative form-group">
@@ -776,33 +592,6 @@
                                 <option>4</option>
                                 <option>5</option>
                             </select></div>
-
-
-<!--
-
-
-         <div class="form-row">
-
-            <div class="col-md-12">
-              <div class="position-relative form-group">
-                <label for="dependente">Dependente:</label>
-                <ValidationProvider name="dependente" rules="required|min:2|max:20" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes, isEmailValid()">
-                <!--    <b-form-input v-model="funcionario.dependente" name="dependente" id="dependente" placeholder="Ex: Mobile" type="text" class="form-control" :minlength="2" :maxlength="20"/>
-                    <b-form-input type="email" class="form-control" placeholder="Email Address" v-model="email" />
-                    <span id="error">{{ errors[0] }}</span>
-                    
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-
--->
-
-
-
 
                    
                 </b-tab>
@@ -906,23 +695,22 @@ export default {
   methods: {
 
 
-    emailValidado: function(){
-      return (this.email == "")? "" : (this.reg.test(this.email))? 'has-success' : 'has-error';
-
+isEmailValid: function() {
+      return (this.email == "")? "" : (this.reg.test(this.email)) ? 'has-success' : 'has-error';
     },
 
      
   
 		buscaCep () {
-			if(this.cep.length == 8) {
-				axios.get(`https://viacep.com.br/ws/${ this.cep }/json/`)
+			if(this.funcionario.enderecoCep.length == 8) {
+				axios.get(`https://viacep.com.br/ws/${ this.funcionario.enderecoCep }/json/`)
 				        .then((res) => { 
                 this.cepConsulta = res.data;
                 console.log(this.cepConsulta)
                 if (this.cepConsulta.erro == true){
                   showError("CEP inválido");                      
                 }else {
-                  showSuccess("Cep consultado com sucesso")
+                  showSuccess("Dados do CEP incluído com sucesso")
                     this.funcionario.enderecoCep = this.cepConsulta.cep;
                     this.funcionario.endereco = this.cepConsulta.logradouro;
                    //this.funcionario.enderecoNo = this.cepConsulta.logradouro;
