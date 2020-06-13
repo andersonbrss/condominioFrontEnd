@@ -14,4 +14,8 @@ export default class Pauta extends Repository {
     buscaPautaVinculoComunicado( dataInicio, dataFim ) {
         return axios.get( `${this.resource}/vinculoComunicado/${dataInicio}/${dataFim}` )
     }
+
+    buscaPautaVinculoAta( dataInicio, dataFim ) {
+        return axios.get( `${this.resource}/vinculoAta/${dataInicio}/${dataFim}` )
+    }
 }

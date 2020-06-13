@@ -33,7 +33,6 @@
 <script>
 import PageTitleComum from "../../Layout/Components/PageTitleComum.vue";
 import ModalComponent from "../components/ModalComponent.vue";
-import TabelaComponent from "../components/TabelaComponent.vue";
 import {confirmDialogObject,showError,showSuccess} from "@/global";
 import {extend,localize} from "vee-validate";
 import pt from "vee-validate/dist/locale/pt_BR.json";
@@ -54,8 +53,7 @@ export default {
   name: "Upload",
   components: {
     PageTitleComum,
-    ModalComponent,
-    TabelaComponent,
+    ModalComponent    
   },
 
   data: function() {

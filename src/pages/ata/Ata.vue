@@ -5,7 +5,7 @@
       :subTituloFuncionalidade="subTitulo"
       :icon="icon"
       :idModal="idModal"      
-      v-on:configuraModal="recuperaNomeModal"
+      v-on:configuraModal="limparListaPauta"
     />
     <!-- Component de pesquisa  -->
     <pesquisa-data
@@ -140,14 +140,88 @@
                             </div>
                           </div>
                         </div>
+
+            <b-form-file             
+            placeholder="Selecione ou arraste os arquivos"
+            accept=".jpg, .png, .pdf "
+            browse-text="Selecione o(s) arquivo(s)"
+            drop-placeholder="Arraste e solte arquivo(s)"                                    
+            v-model="ata.upload"      
+            ></b-form-file>
+
                     </b-tab>  
 
-                    <b-tab title="Pauta">                       
-                    </b-tab>   
+                      <!-- Recupera Pauta  -->
+                      <b-tab title="Pauta">
+                        <pesquisa-data
+                          v-on:pesquisar="recuperaPautas(filtroDatas.dataInicio,filtroDatas.dataFim)">
+                          <div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <h6>Data Inicio:</h6>
+                                <datetime
+                                  v-model="filtroDatasPauta.dataInicio"
+                                  type="date"
+                                  name="dataInicioPauta"
+                                  input-id="dataInicioPauta"
+                                  input-class="form-control"
+                                  placeholder="Selecione a data e hora"
+                                  value-zone="America/Sao_Paulo"
+                                  :format="{
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                  }"
+                                >
+                                </datetime>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                  <h6>Data Fim:</h6>
+                                  <datetime
+                                    v-model="filtroDatasPauta.dataFim"
+                                    type="date"
+                                    name="dataFimPauta"
+                                    input-id="dataFimPauta"
+                                    input-class="form-control"
+                                    placeholder="Selecione a data e hora"
+                                    value-zone="America/Sao_Paulo"
+                                    :format="{
+                                      weekday: 'long',
+                                      year: 'numeric',
+                                      month: 'long',
+                                      day: 'numeric',
+                                    }"
+                                  >
+                                  </datetime>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </pesquisa-data>
+                      <br>
+                        <tabela-selecao
+                          :listaObjetos="listaPauta"
+                          :camposFormulario="camposPauta"
+                          v-on:select="recuperaIdPauta"
+                          
+                        />
 
-                    <b-tab title="Upload">                       
-                    </b-tab>   
+                        <br />
+                      </b-tab>  
 
+                      <b-tab title="Upload">
+
+            <b-form-file             
+            placeholder="Selecione ou arraste os arquivos"
+            accept=".jpg, .png, .pdf "
+            browse-text="Selecione o(s) arquivo(s)"
+            drop-placeholder="Arraste e solte arquivo(s)"                                    
+            v-model="ata.upload"      
+            ></b-form-file>
+
+                      </b-tab>
 
                     </b-tabs>
                   </b-card>
@@ -180,13 +254,16 @@ import * as rules from "vee-validate/dist/rules";
 import { Datetime } from "vue-datetime";
 import moment from "moment";
 import PesquisaData from "../components/PesquisaData.vue";
-//import TabelaSelecaoComponent from "../components/TabelaSelecaoComponent";
+import TabelaSelecaoComponent from "../components/TabelaSelecaoComponent";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 //import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import ataService from "./service/AtaService";
 import Ata from "./domain/Ata";
+
+import PautaService from "../pauta/service/PautaService";
+import Pauta from "../pauta/domain/Pauta";
 
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
@@ -205,7 +282,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
     datetime: Datetime,
-    //"tabela-selecao": TabelaSelecaoComponent,
+    "tabela-selecao": TabelaSelecaoComponent,
     "pesquisa-data": PesquisaData,
     //"font-awesome-icon": FontAwesomeIcon
   },
@@ -218,6 +295,7 @@ export default {
       idModal: "cadastrar-ata",
       tituloModal: "",
       ata: new Ata(),
+       imagem: '',
       filtroDatas: {
         dataInicio: moment().format(), 
         dataFim: moment().add(7,"days").format()
@@ -236,17 +314,32 @@ export default {
         { key: "actions", label: "Ações" }    
       ],
       context: null,
+       listaPauta: [],
+      pauta: new Pauta(),
+      filtroDatasPauta: {
+        dataInicio: moment().format(), 
+        dataFim: moment().add(7,"days").format()
+      },
+      camposPauta: [
+        {
+          key: "data",
+          label: "Data",
+          formatter: (value) => {
+            return moment(value).format("LL");
+          },
+          sortable: true,
+        },
+        { key: "local", label: "Local" },
+        { key: "assuntos", label: "Assunto(s)" },
+        { key: "actions", label: "Ações" },
+      ],
     };
   },
 
   methods: {
     limparFormulario: function() {
-      this.ata = new Ata();
+      this.ata = new Ata();      
       this.$refs.form.reset();
-    },
-
-    recuperaNomeModal:function(){
-     this.tituloModal = "Cadastro de Ata";
     },
     
     recuperarAtaData: function(dataInicio, dataFim) {
@@ -302,7 +395,7 @@ export default {
     },
 
     loadAta: function(ata) {
-      //this.limparListaAta();            
+      this.limparListaPauta();            
       this.$bvModal.show(this.idModal);
       this.tituloModal = "Alteração de Ata";
       this.ata = { ...ata };
@@ -311,7 +404,7 @@ export default {
     confirmModal: function(ata) {
       this.$bvModal
         .msgBoxConfirm(
-          "Deseja realmente excluir a Ata: " + ata.consideracoesFinais + "?",
+          "Deseja realmente excluir a Ata do dia: " + moment(ata.data).format("DD/MM/YYYY") + "?",
           confirmDialogObject
         )
         .then((value) => {
@@ -319,6 +412,30 @@ export default {
         })
         .catch(showError);
     },
+    /**
+      metodos de PAUTA
+     */
+
+      limparListaPauta: function() {
+      this.listaPauta = [];
+      this.filtroDatas.dataInicio = moment().format();      
+      this.filtroDatas.dataFim = moment().format();      
+      this.tituloModal = "Cadastro de Ata";
+    },
+
+      recuperaPautas: function(dataInicio, dataFim) {
+        PautaService.buscarPautaVinculoAta(dataInicio, dataFim)
+          .then((res) => {
+            this.listaPauta = res.data;
+          })
+          .catch(showError);
+    },
+
+        recuperaIdPauta: function(pauta) {
+      this.ata.pauta = { ...pauta };            
+      showSuccess("A pauta adicionada a ata.");
+    },   
+
   },
   mounted: function() {
     this.recuperaListaAta();
@@ -326,32 +443,29 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
-.control
- width: 100%
- span
-   display: block
-   input,textarea,datetime
-   padding: 5px 10px
+<style  scoped>
+.control{
+ width: 100%;
+}
+.span{
+   display: block;   
+   padding: 5px 10px;
+}
+ .invalid{   
+     color: #EB0600;
+ }
+ .valid{
+      color: #045929;    
+     border: 1px #045929 solid;
+}
 
- &.invalid
-   input,textarea,span,datetime
-     color: #EB0600
-   input,textarea,datetime
-     border: 1px #EB0600 solid
-
- &.valid
-   input,textarea,span,datetime
-     color: #045929
-   input,textarea,datetime
-     border: 1px #045929 solid
-
- &.btn-group button {
-    background-color: #4CAF50; /* Green background */
-    border: 1px solid green; /* Green border */
-    color: white; /* White text */
-    padding: 10px 24px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
+.preview-image {
+    width: 400px;
+    background-color: white;
+    border:1px solid #DDD;
+    padding:1px;
+    display: block;
+    font-weight: bold;
+    border-radius: 5px;
 }
 </style>
