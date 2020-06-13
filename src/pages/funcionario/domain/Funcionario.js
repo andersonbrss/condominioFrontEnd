@@ -1,6 +1,6 @@
 export default class Funcionario{
-    constructor(data='',nome='',cpf='',telefone='',sexo='',email='',rg='',rgEmissor='',rgEmissorData='',escolaridade='',
-    estadoCivil='',pisPasep='',tituloEleitor='',
+    constructor(data='',nome='',cpf='',telefone='',sexo='',email='',rg='',rgEmissor='',rgEmissorEstado='',rgEmissorData='',escolaridade='',
+    estadoCivil='',pisPasep='' ,reservista='',tituloEleitor='',tituloEleitorZona='',tituloEleitorSecao='',
     carteiraTrabalhoNo='',carteiraTrabalhoSerie='',carteiraTrabalhoUf='',carteiraTrabalhoEmissorData='',
     endereco='',enderecoNo='',enderecoCep='',enderecoBairro='',enderecoCidade='',enderecoEstado='',
     dependente='',parentesco='',dependenteDataNascimento='') {
@@ -11,12 +11,15 @@ export default class Funcionario{
         this.sexo = sexo;
         this.email = email;
         this.rg = rg;
-        this.rgEmissor = rgEmissor;
+        this.rgEmissor = rgEmissor; 
+        this.rgEmissorEstado = rgEmissorEstado;
         this.rgEmissorData = rgEmissorData;
         this.escolaridade = escolaridade;
         this.estadoCivil = estadoCivil;
         this.pisPasep = pisPasep;
+        this.reservista = reservista;
         this.tituloEleitor = tituloEleitor;
+        this.tituloEleitorZona = tituloEleitorZona;
         this.carteiraTrabalhoNo = carteiraTrabalhoNo;
         this.carteiraTrabalhoSerie = carteiraTrabalhoSerie;
         this.carteiraTrabalhoUf = carteiraTrabalhoUf;

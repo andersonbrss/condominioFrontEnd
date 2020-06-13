@@ -51,11 +51,11 @@
 
             <div class="col-md-4">
               <div class="position-relative form-group">
-                <label for="data">Data de Nascimento:</label>
+                <label for="funcionario.data">Data de Nascimento:</label>
                 <ValidationProvider name="data" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                  <div class="control" :class="classes">                  
-                       <datetime v-model="funcionario.data" type="date" name="data" input-id="data" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
+                       <datetime v-model="funcionario.data" type="date" name="funcionario.data" input-id="funcionario.data" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
                         :format="{year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
                     <span id="error">{{ errors[1] }}</span>
@@ -108,9 +108,10 @@
                 <ValidationProvider name="sexo"  :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                          <select v-model="funcionario.sexo" name="sexo" id="sexo" class="form-control">
+                          <select v-model="selected" required name="sexo" id="sexo" class="form-control">
+                                
                                 <option value="">Selecione</option>
-                                <option>Masculino</option>
+                                <option value="masculino">Masculino</option>
                                 <option>Feminino</option>
 
                           </select>
@@ -130,7 +131,7 @@
                 <label for="email">Email:</label>
                 <ValidationProvider name="Email" rules="required" :bails="false" v-slot="{ classes, errors}">
 
-                 <div class="control" :class="[classes, isEmailValid()]">                  
+                 <div class="control" :class="[classes, emailValido()]">                  
                    <input type="email" v-model="funcionario.email" name="email" id="email" placeholder=" email@mail.com " class="form-control" :minlength="2" :maxlength="50"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
@@ -140,6 +141,8 @@
 
 
           </div>
+
+          
                 
                 </b-tab>
 
@@ -204,6 +207,13 @@
 
 
 
+
+
+
+
+
+
+
          <div class="form-row">
 
 
@@ -211,13 +221,14 @@
 <!--DADOS RG-->
 
 
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="rg">RG:</label>
-                <ValidationProvider name="rg" rules="required|min:1|max:10" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="rg" rules="required|min:7|max:18" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <the-mask :mask="['###.###.###.###']" v-model="funcionario.rg"  name="rg" id="rg"  placeholder="000.000.000.000" type="text" class="form-control" :minlength="1" :maxlength="12" />
+                    <the-mask :mask="['#.###.###' , '##.###.###' , '###.###.###', '#.###.###.###', '##.###.###.###', '###.###.###.###', '#.###.###.###.###', '##.###.###.###.###']" 
+                    v-model="funcionario.rg"  name="rg" id="rg"  placeholder="0.000.000" type="text" class="form-control" :minlength="7" :maxlength="18" />
                     
                     <span id="error">{{ errors[0] }}</span>
                     
@@ -232,10 +243,10 @@
             <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="nome">Emissor:</label>
-                <ValidationProvider name="emissor" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="emissor" rules="required|min:2|max:7" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.rgEmissor" name="rgEmissor" id="rgEmissor" placeholder="    --" type="text" class="form-control" :minlength="2" :maxlength="10"/>
+                    <b-form-input v-model="funcionario.rgEmissor" name="rgEmissor" id="rgEmissor" placeholder="Ex: SSP" type="text" class="form-control" :minlength="2" :maxlength="10"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -243,7 +254,50 @@
             </div>
 
 
-            <div class="col-md-5">
+            <div class="col-md-3">
+              <div class="position-relative form-group">
+                <label for="nome">Estado:</label>
+                <ValidationProvider name="estado" rules="required|min:2|max:2" :bails="false" v-slot="{ classes, errors}">
+
+                  <div class="control" :class="classes">
+                          <select v-model="funcionario.rgEmissorEstado" name="rgEmissorEstado" id="rgEmissorEstado" placeholder="Selecione" class="form-control">
+                                <option value="">Selecione</option>
+                                <option>AC</option>
+                                <option>AL</option>
+                                <option>AP</option>
+                                <option>AM</option>
+                                <option>BA</option>
+                                <option>CE</option>
+                                <option>DF</option>
+                                <option>ES</option>
+                                <option>GO</option>
+                                <option>MA</option>
+                                <option>MT</option>
+                                <option>MS</option>
+                                <option>MG</option>
+                                <option>PA</option>
+                                <option>PB</option>
+                                <option>PR</option>
+                                <option>PI</option>
+                                <option>RJ</option>
+                                <option>RN</option>
+                                <option>RS</option>
+                                <option>RO</option>
+                                <option>RR</option>
+                                <option>SC</option>
+                                <option>SP</option>
+                                <option>SE</option>
+                                <option>TO</option>
+
+                    </select>
+                    <span id="error">{{ errors[0] }}</span>
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+
+
+            <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="rgEmissorData">Data Emissão:</label>
                 <ValidationProvider name="data emissão" rules="required" :bails="false" v-slot="{ classes, errors}">
@@ -252,7 +306,7 @@
                        <datetime v-model="funcionario.rgEmissorData" type="date" name="rgEmissorData" input-id="rgEmissorData" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
                         :format="{year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
-                    <span id="error">{{ errors[0] }}</span>
+                    <span id="error">{{ errors[1] }}</span>
                   </div>
                 </ValidationProvider>
               </div>
@@ -269,10 +323,10 @@
             <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="carteiraTrabalhoNo">Carteira de Trabalho Nº:</label>
-                <ValidationProvider name="carteira de trabalho nº" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="carteira de trabalho nº" rules="required|min:4|max:8" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.carteiraTrabalhoNo" name="carteiraTrabalhoNo" id="carteiraTrabalhoNo" placeholder="" type="text" class="form-control" :minlength="5" :maxlength="100"/>
+                    <the-mask :mask="['#####']" v-model="funcionario.carteiraTrabalhoNo"  name="carteiraTrabalhoNo" id="carteiraTrabalhoNo"  placeholder="00.000" type="text" class="form-control" :minlength="14" :maxlength="14" />
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -282,25 +336,53 @@
             <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="série">Série:</label>
-                <ValidationProvider name="série" rules="required" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="série" rules="required|min:1|max:5" :bails="false" v-slot="{ classes, errors}">
 
                                    
                    <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.carteiraTrabalhoSerie"  name="carteiraTrabalhoSerie" id="carteiraTrabalhoSerie"  placeholder="000.000.000-00" type="text" class="form-control" :minlength="1" :maxlength="8" />
-  
+                    <the-mask :mask="['#####']" v-model="funcionario.carteiraTrabalhoSerie"  name="carteiraTrabalhoSerie" id="carteiraTrabalhoSerie"  placeholder="00" type="text" class="form-control" :minlength="14" :maxlength="14" />
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
               </div>
             </div>	
 
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="UF">UF:</label>
                 <ValidationProvider name="uf" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.carteiraTrabalhoUf" name="carteiraTrabalhoUf" id="carteiraTrabalhoUf" placeholder="    --" type="text" class="form-control" :minlength="2" :maxlength="2"/>
+                          <select v-model="funcionario.carteiraTrabalhoUf" name="carteiraTrabalhoUf" id="carteiraTrabalhoUf" placeholder="Selecione" class="form-control">
+                                <option value="">Selecione</option>
+                                <option>AC</option>
+                                <option>AL</option>
+                                <option>AP</option>
+                                <option>AM</option>
+                                <option>BA</option>
+                                <option>CE</option>
+                                <option>DF</option>
+                                <option>ES</option>
+                                <option>GO</option>
+                                <option>MA</option>
+                                <option>MT</option>
+                                <option>MS</option>
+                                <option>MG</option>
+                                <option>PA</option>
+                                <option>PB</option>
+                                <option>PR</option>
+                                <option>PI</option>
+                                <option>RJ</option>
+                                <option>RN</option>
+                                <option>RS</option>
+                                <option>RO</option>
+                                <option>RR</option>
+                                <option>SC</option>
+                                <option>SP</option>
+                                <option>SE</option>
+                                <option>TO</option>
+
+                    </select>
 
                     <span id="error">{{ errors[0] }}</span>
                   </div>
@@ -308,7 +390,7 @@
               </div>
             </div>	
 
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="position-relative form-group">
                 <label for="carteiraTrabalhoEmissorData">Data Emissão:</label>
                 <ValidationProvider name="data emissão" rules="required" :bails="false" v-slot="{ classes, errors}">
@@ -317,7 +399,7 @@
                        <datetime v-model="funcionario.carteiraTrabalhoEmissorData" type="date" name="carteiraTrabalhoEmissorData" input-id="carteiraTrabalhoEmissorData" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
                         :format="{year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
-                    <span id="error">{{ errors[0] }}</span>
+                    <span id="error">{{ errors[1] }}</span>
                   </div>
                 </ValidationProvider>
               </div>
@@ -327,30 +409,13 @@
 
           <div class="form-row">
 
-            <div class="col-md-6">
+            <div class="col-md-5">
               <div class="position-relative form-group">
                 <label for="pisPasep">Pis/Pasep:</label>
-                <ValidationProvider name="pis/pasep" rules="required|min:11|max:11" :bails="false" v-slot="{ classes, errors}">
+                <ValidationProvider name="pis/pasep" rules="required|min:11|max:14" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <the-mask :mask="['###.###.###.###']" v-model="funcionario.pisPasep"  name="pisPasep" id="pisPasep"  placeholder="000.000.000.000" type="text" class="form-control" :minlength="14" :maxlength="14" />
-                    
-                    <span id="error">{{ errors[0] }}</span>
-                    
-                  </div>
-                </ValidationProvider>
-              </div>
-            </div>
-
-
-
-            <div class="col-md-6">
-              <div class="position-relative form-group">
-                <label for="tituloEleitor">Título de Eleitor:</label>
-                <ValidationProvider name="título de eleitor" rules="required|min:1|max:11" :bails="false" v-slot="{ classes, errors}">
-
-                  <div class="control" :class="classes">
-                    <the-mask :mask="['###.###.###.###']" v-model="funcionario.tituloEleitor"  name="tituloEleitor" id="tituloEleitor"  placeholder="000.000.000.000" type="text" class="form-control" :minlength="1" :maxlength="11" />
+                    <the-mask :mask="['###.#####.##-#']" v-model="funcionario.pisPasep"  name="pisPasep" id="pisPasep"  placeholder="000.00000.00-0" type="text" class="form-control" :minlength="11" :maxlength="14" />
                     
                     <span id="error">{{ errors[0] }}</span>
                     
@@ -359,12 +424,6 @@
               </div>
             </div>
           
-
-
-          
-
-
-
 
 
           </div>
@@ -372,6 +431,80 @@
 
 
 
+
+
+
+
+          <div class="form-row">
+
+            <div class="col-md-4">
+              <div class="position-relative form-group">
+                <label for="tituloEleitor">Título de Eleitor:</label>
+                <ValidationProvider name="título de eleitor" rules="required|min:12|max:14" :bails="false" v-slot="{ classes, errors}">
+
+                  <div class="control" :class="classes">
+                    <the-mask :mask="['#### #### ####']" v-model="funcionario.tituloEleitor"  name="tituloEleitor" id="tituloEleitor"  placeholder="0000 0000 0000" type="text" class="form-control" :minlength="12" :maxlength="14" />
+                    
+                    <span id="error">{{ errors[0] }}</span>
+                    
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+          
+
+            <div class="col-md-2">
+              <div class="position-relative form-group">
+                <label for="tituloEleitorZona">Zona:</label>
+                <ValidationProvider name="zona" rules="required|min:3|max:3" :bails="false" v-slot="{ classes, errors}">
+
+                  <div class="control" :class="classes">
+                    <the-mask :mask="['###']" v-model="funcionario.tituloEleitorZona"  name="tituloEleitorZona" id="tituloEleitorZona"  placeholder="000" type="text" class="form-control" :minlength="3" :maxlength="3" />
+                    
+                    <span id="error">{{ errors[0] }}</span>
+                    
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+
+
+            <div class="col-md-2">
+              <div class="position-relative form-group">
+                <label for="tituloEleitorSecao">Seção:</label>
+                <ValidationProvider name="seção" rules="required|min:4|max:4" :bails="false" v-slot="{ classes, errors}">
+
+                  <div class="control" :class="classes">
+                    <the-mask :mask="['####']" v-model="funcionario.tituloEleitorSecao"  name="tituloEleitorSecao" id="tituloEleitorSecao"  placeholder="0000" type="text" class="form-control" :minlength="4" :maxlength="4" />
+                    
+                    <span id="error">{{ errors[0] }}</span>
+                    
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+          <div class="form-row" >
+            <div class="col-md-3"  v-if="selected === 'masculino'">
+              <div class="position-relative form-group">
+                <label for="reservista">Reservista:</label>
+                <ValidationProvider name="reservista" rules="required|min:11|max:11" :bails="false" v-slot="{ classes, errors}">
+                  <div class="control" :class="classes">
+                    <the-mask :mask="['###.###.###-##']" v-model="funcionario.reservista" required name="reservista" id="reservista"  placeholder="000.000.000-00" type="text" class="form-control" :minlength="14" :maxlength="14" />                    
+                    <span id="error">{{ errors[0] }}</span>                    
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>	
+
+
+          </div>
 
                    
                 </b-tab>               
@@ -444,7 +577,7 @@
                 <ValidationProvider name="bairro" rules="required|min:5|max:100" :bails="false" v-slot="{ classes, errors}">
 
                   <div class="control" :class="classes">
-                    <b-form-input v-model="funcionario.enderecoBairro" name="enderecoBairro" id="enderecoBairro" placeholder="Digite a cidade" type="text" class="form-control" :minlength="5" :maxlength="100"/>
+                    <b-form-input v-model="funcionario.enderecoBairro" name="enderecoBairro" id="enderecoBairro" placeholder="Digite o Bairro" type="text" class="form-control" :minlength="5" :maxlength="100"/>
                     <span id="error">{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
@@ -530,11 +663,9 @@
               <div class="position-relative form-group">
                 <label for="parentesco">Parentesco:</label>
                 <ValidationProvider name="parentesco"  :bails="false" v-slot="{ classes, errors}">
-
                   <div class="control" :class="classes">
                           <select placeholder="Selecione" v-model="funcionario.parentesco" name="parentesco" id="parentesco"  class="form-control">
-                                <option value="">Selecione</option>
-                                <option>Filho</option>
+                                <option value="">Selecione</option>                            
                                 <option>Filho</option>
                                 <option>Filha</option>
                                 <option>Mãe</option>
@@ -556,10 +687,10 @@
                 <ValidationProvider name="data" rules="required" :bails="false" v-slot="{ classes, errors}">
 
                  <div class="control" :class="classes">                  
-                       <datetime v-model="funcionario.dependenteDataNascimento" type="dependenteDataNascimento" name="dependenteDataNascimento" input-id="dependenteDataNascimento" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
+                       <datetime v-model="funcionario.dependenteDataNascimento" type="date" name="dependenteDataNascimento" input-id="dependenteDataNascimento" input-class="form-control" placeholder="Selecione a data" value-zone="America/Sao_Paulo"                               
                         :format="{year: 'numeric', month: 'long', day: 'numeric'}">
                     </datetime>
-                    <span id="error">{{ errors[0] }}</span>
+                    <span id="error">{{ errors[1] }}</span>
                   </div>
                 </ValidationProvider>
               </div>
@@ -568,7 +699,118 @@
 
           </div>
 
+<!--
+<select name="parent" class="form-control" v-model="selected" required>
+      <option value="" selected></option>
+      <option value="item1">Item 1</option>
+      <option value="item2">Item 2</option>
+</select>
+<div>
+   <input name="Test 1" v-show="selected"> //display when item 1 is selected
+</div>
+<div>
+   <input name="Test 2" v-show="selected"> //display when item 2 is selected
+</div>
 
+
+      <div v-if="selected === 'item1'">
+  item1 was selected
+          </div>
+        <div v-else>
+  Something else was selected.
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="form-row">
+
+            <div class="col-md-3">
+              <div class="position-relative form-group">
+                <label for="parentesco">Parentesco:</label>
+                <ValidationProvider name="parentesco"  :bails="false" v-slot="{ classes, errors}">
+                    <div class="control" :class="classes">
+
+<select name="parent" class="form-control" v-model="selected" required>
+      <option value="" selected></option>
+      <option value="masculino">Item 1</option>
+      <option value="item2">Item 2</option>
+</select>
+
+                    <span id="error">{{ errors[0] }}</span>
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>            
+
+
+
+          <div class="form-row">
+
+            <div class="col-md-3" v-if="selected === 'masculino'">
+              <div class="position-relative form-group">
+                <label for="parentesco">reservista::</label>
+                <ValidationProvider name="parentesco"  :bails="false" v-slot="{ classes, errors}">
+                    <div class="control" :class="classes">
+                          <select class="form-control" name="make" id="make" v-model="make">
+                            <option :value="null" disabled selected>Selecione</option>
+                            <option v-for="option in makes_options" v-bind:value="option.id">{{option.text}}</option>
+                          </select>
+                    <span id="error">{{ errors[0] }}</span>
+                  </div>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>  
+
+
+
+
+<!--
+<div class="col-xs-6" id="app">
+  <h1>{{heading}}</h1>
+  <div class="form-group">
+    <label for="make">Make</label>
+    <select class="form-control" name="make" id="make" v-model="make">
+      <option :value="null" disabled selected>Select Make</option>
+      <option v-for="option in makes_options" v-bind:value="option.id">{{option.text}}</option>
+    </select>
+  </div>
+  
+  
+  
+  <div class="form-group">
+    <label for="model">Model</label>
+    
+    
+    <select class="form-control" name="model" id="model" v-model="model">
+      <option v-for="option in model_options[make]" v-bind:value="option.id" v-bind:key="option.id">
+        
+        {{option.text}}</option>
+    </select>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--
                 <template v-for="variant in ['outline-primary']">
                   <b-dropdown no-flip :text="variant" class="mb-2 mr-2" :variant="variant">
                     <button type="button" tabindex="0" class="dropdown-item">Menus</button>
@@ -592,7 +834,7 @@
                                 <option>4</option>
                                 <option>5</option>
                             </select></div>
-
+-->
                    
                 </b-tab>
               </b-tabs>
@@ -668,10 +910,29 @@ export default {
       cepConsulta : '',       
       cabecalho: "Funcionario",
       subTitulo: "Lista de Funcionarios",
-      icon: "pe-7s-wallet icon-gradient bg-plum-plate",
+      icon: "pe-7s-id icon-gradient bg-plum-plate",
       idModal: "cadastrar-funcionario",
       tituloModal: "Cadastro de Funcionarios",
       funcionario: new Funcionario(),
+      selected: '',
+      teste: '',
+      make: null,
+      model: null,
+      makes_options: [
+        {
+          text: "Masculino",
+          id: 1
+        },
+        {
+          text: "Feminino",
+          id: 2
+        }
+
+      ],
+      model_options: '',
+
+
+
       filtroDatas:{dataInicio: new Date().toISOString().substring(0,10), dataFim: new Date().toISOString().substring(0,10)},
       listaFuncionario: [],
       camposFuncionario: [
@@ -695,11 +956,11 @@ export default {
   methods: {
 
 
-isEmailValid: function() {
+emailValido: function() {
       return (this.email == "")? "" : (this.reg.test(this.email)) ? 'has-success' : 'has-error';
     },
 
-     
+ 
   
 		buscaCep () {
 			if(this.funcionario.enderecoCep.length == 8) {
